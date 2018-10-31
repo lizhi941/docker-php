@@ -7,7 +7,7 @@ LABEL "Maitainer.email"="lizhi941@sohu.com"
 
 # To install php-extensions (gd ,gettext ,pgsql ,mysql)
 # they are nessisary for running bacul-web 
-RUN requirements="" \
+RUN requirements="libfreetype6-dev libjpeg62-turbo-dev libpng-dev postgresql-server-dev-all" \
     && apt-get update \
     && apt-get install -y $requirements \
     && rm -rf /var/lib/apt/lists/* \
