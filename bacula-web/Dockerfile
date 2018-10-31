@@ -1,4 +1,6 @@
-FROM php:7.2-apache    # From docker hub offical images 
+# php:7.2-apache From docker hub offical images 
+
+FROM php:7.2-apache    
 
 LABEL "Maitainer.name"="Zhi Li"
 LABEL "Maitainer.email"="lizhi941@sohu.com"
