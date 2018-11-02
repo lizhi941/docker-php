@@ -11,6 +11,8 @@ RUN requirements="libfreetype6-dev libjpeg62-turbo-dev libpng-dev postgresql-ser
     && apt-get update \
     && apt-get install -y $requirements \
     && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install pgsql \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install gettext  \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -18,11 +20,9 @@ RUN requirements="libfreetype6-dev libjpeg62-turbo-dev libpng-dev postgresql-ser
     && requirementsToRemove="" \
     && apt-get purge --auto-remove -y $requirementsToRemove
 
-ADD bacula-web-8.0.1.tgz /var/www/html/
+ADD bacula-web-8.0.1.tgz /var/www/html/    #you can get sourcecode from website http://www.bacula-web.org
 
-RUN chown -R www-data /var/www/html/ && \
-    chmod -R u=rx,g=rx,o=rx /var/www/html/ && \
-    chmod -R u=rwx,g=rwx,o=rx /var/www/html/application/views/cache
+RUN chown -R www-data /var/www/html/      # because apache create a user www-data,so need to change the owner
 
 ADD run.sh /run.sh
 RUN chmod +x /run.sh
