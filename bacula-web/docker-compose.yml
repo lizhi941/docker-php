@@ -1,0 +1,35 @@
+bacula-db-data:
+  image: redcoolbeans/bacula-opensource-db-data:7.4.0
+  container_name: bacula-db-data
+#explose port 9700:5432
+bacula-db:
+  image: redcoolbeans/bacula-opensource-db:7.4.0
+  container_name: bacula-db
+  hostname: bacula-db
+  ports:
+     - "9700:5432"
+  volumes_from:
+    - bacula-db-data:rw
+  environment:
+    POSTGRES_PASSWORD: U8azIbKXY9QD
+    APACHE_SERVERNAME: bacula-db
+    POSTGRES_HOST: bacula-db
+    POSTGRES_PORT: 5432
+#web port 9888:80
+bacula-web:
+   image: lizhi/22222222vanio-bacula-web:8.0.1
+   container_name: bacula-web
+   hostname: bacula-web
+   ports:
+     - "9888:80"
+   links:
+     - bacula-db
+   environment:
+     DB_TYPE: pgsql
+     DB_HOST: 120.76.77.11
+     DB_PORT: 9700
+     DB_NAME: postgres
+     DB_USER: postgres
+     DB_PASS: U8azIbKXY9QD
+     PHP_TIMEZONE: Europe/Berlin
+     LABEL: lizhi
